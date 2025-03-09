@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const { data : session } = useSession()
+  const user = session?.user
   const [activeSubscription, setActiveSubscription] = useState("")
   useEffect(() => {
     async function fetchSubscriptions() {
@@ -21,12 +22,19 @@ export default function Home() {
     }
     fetchSubscriptions()
   }, [session])
+
+  if (!user)
+    return (
+      <div className="flex justify-center h-screen items-center">
+      <div className="size-8 animate-pulse rounded-full border bg-muted" />
+      </div>
+    );
   return (
     <div className="flex justify-center h-screen items-center">
       <div className="flex flex-col gap-5">
       <div>{session?.user?.name}</div>
       {
-        !session?.user && (
+        !session && (
           <div>
             <SignIn />
           </div>
