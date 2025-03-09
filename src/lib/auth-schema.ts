@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, integer } from "drizzle-orm/pg-core";
 			
 export const user = pgTable("user", {
 					id: text("id").primaryKey(),
@@ -7,8 +7,24 @@ export const user = pgTable("user", {
  emailVerified: boolean('email_verified').notNull(),
  image: text('image'),
  createdAt: timestamp('created_at').notNull(),
- updatedAt: timestamp('updated_at').notNull()
+ updatedAt: timestamp('updated_at').notNull(),
+ stripeCustomerId: text('stripe_customer_id')
 				});
+
+export const subscription = pgTable("subscription", {
+					id: text("id").primaryKey(),
+					plan: text('plan').notNull(),
+					referenceId: text('reference_id').notNull(),
+					status: text('status').notNull(),
+					stripeCustomerId: text('stripe_customer_id'),
+					stripeSubscriptionId: text('stripe_subscription_id'),
+					periodStart: timestamp('period_start'),
+					periodEnd: timestamp('period_end'),
+					cancelAtPeriodEnd: boolean('cancel_at_period_end'),
+					seats: integer('seats'),
+					trialStart: timestamp('trial_start'),
+					trialEnd: timestamp('trial_end'),
+})
 
 export const session = pgTable("session", {
 					id: text("id").primaryKey(),
