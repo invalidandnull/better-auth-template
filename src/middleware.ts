@@ -3,7 +3,6 @@ import { getSessionCookie } from "better-auth/cookies";
  
 export async function middleware(request: NextRequest) {
 	const sessionCookie = getSessionCookie(request); // Optionally pass config as the second argument if cookie name or prefix is customized.
-  console.log(sessionCookie)
 	if (!sessionCookie) {
 		return NextResponse.redirect(new URL("/", request.url));
 	}

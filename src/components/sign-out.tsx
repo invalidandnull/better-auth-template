@@ -1,14 +1,15 @@
 import { authClient } from '@/lib/auth-client'
 import React from 'react'
+import { Button } from './ui/button'
 
 const SignOut = () => {
   const { data: session } = authClient.useSession()
   if (!session?.user) return null
   return (
     <div>
-      <button onClick={async () => {
+      <Button onClick={async () => {
         await authClient.signOut()
-      }} className='border rounded-2xl p-5 cursor-pointer'>Sign out</button>
+      }}>Sign out</Button>
     </div>
   )
 }

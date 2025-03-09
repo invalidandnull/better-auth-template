@@ -1,9 +1,24 @@
+"use client"
+import { useSession } from '@/lib/auth-client'
 import React from 'react'
 
-const page = () => {
+const DashboardPage = () => {
+  const { data : session } = useSession()
+    const user = session?.user
   return (
-    <div>page</div>
+    <div>
+      {user ? (
+        <div>
+          <h1>Dashboard</h1>
+          <p>Welcome {user.name}</p>
+        </div>
+      ) : (
+        <div>
+          <p>Loading...</p>
+        </div>
+      )}
+    </div>
   )
 }
 
-export default page
+export default DashboardPage

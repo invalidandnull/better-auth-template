@@ -1,67 +1,44 @@
-"use client"
-import SignIn from "@/components/sign-in";
-import SignOut from "@/components/sign-out";
-import { Button } from "@/components/ui/button";
-import { authClient, useSession } from "@/lib/auth-client";
-import { useEffect, useState } from "react";
-// import SignInGoogle from "@/components/SignInGoogle";
+"use client";
 
-// import { authClient } from "@/lib/auth-client";
-// import { signInWithGoogle } from "@/server/users";
+import { useEffect, useState } from "react";
+import { authClient, useSession } from "@/lib/auth-client";
+import Navbar from "@/components/sections/Navbar";
+import Hero from "@/components/sections/Hero";
+import Features from "@/components/sections/Features";
+import Pricing from "@/components/sections/Pricing";
+import FAQ from "@/components/sections/FAQ";
+import Footer from "@/components/sections/Footer";
 
 export default function Home() {
-  const { data : session } = useSession()
-  const user = session?.user
-  const [activeSubscription, setActiveSubscription] = useState("")
+  const { data: session } = useSession();
+  const [activeSubscription, setActiveSubscription] = useState("");
+  
   useEffect(() => {
     async function fetchSubscriptions() {
-      const {data: subscriptions} = await authClient.subscription.list()
-      const activeSubscription = subscriptions?.find(sub => sub.status === "active" || sub.status === "trialing"
+      const { data: subscriptions } = await authClient.subscription.list();
+      const activeSubscription = subscriptions?.find(
+        (sub) => sub.status === "active" || sub.status === "trialing"
       )?.plan;
-      setActiveSubscription(activeSubscription||"")
+      setActiveSubscription(activeSubscription || "");
     }
-    fetchSubscriptions()
-  }, [session])
+    fetchSubscriptions();
+  }, [session]);
 
-  if (!user)
+  if (!session?.user)
     return (
       <div className="flex justify-center h-screen items-center">
-      <div className="size-8 animate-pulse rounded-full border bg-muted" />
+        <div className="size-8 animate-pulse rounded-full border bg-muted" />
       </div>
     );
+
   return (
-    <div className="flex justify-center h-screen items-center">
-      <div className="flex flex-col gap-5">
-      <div>{session?.user?.name}</div>
-      {
-        !session && (
-          <div>
-            <SignIn />
-          </div>
-        )
-      }
-      {
-        session?.user && (
-          <div>
-            <div>
-              <Button onClick={
-                async () => {
-                  await authClient.subscription.upgrade({
-                    plan: "basic",
-                    successUrl: "/",
-                    cancelUrl: "/"
-                  })
-                }
-              }>upgrade to basic</Button>
-            </div>
-            <div>
-              {activeSubscription}
-            </div>
-            <SignOut />
-          </div>
-        )
-      }
-      </div>
-    </div>
+    <main className="min-h-screen">
+      <Navbar />
+      <Hero />
+      <Features />
+      <Pricing activeSubscription={activeSubscription} />
+      <FAQ />
+      <Footer />
+    </main>
   );
 }
