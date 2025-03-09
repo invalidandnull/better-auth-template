@@ -1,8 +1,4 @@
-import SignIn from "@/components/sign-in";
-import { useSession } from "@/lib/auth-client";
-
 export default function Hero() {
-  const { data: session } = useSession();
 
   return (
     <section className="pt-24 pb-20 px-4 bg-gradient-to-b from-white to-gray-50">
@@ -14,11 +10,6 @@ export default function Hero() {
           Transform your workflow with our powerful platform. Built for teams who demand excellence.
         </p>
         <div className="mt-10 flex justify-center gap-4">
-          {!session?.user && (
-            <div className="max-w-sm w-full">
-              <SignIn />
-            </div>
-          )}
         </div>
         <div className="mt-16 grid grid-cols-3 gap-8 max-w-2xl mx-auto text-center">
           <div>

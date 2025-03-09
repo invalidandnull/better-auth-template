@@ -18,6 +18,12 @@ export default function Pricing({ activeSubscription }: PricingProps) {
     });
   };
 
+  const handleCancel = async () => {
+    await authClient.subscription.cancel({
+      returnUrl: "/",
+    });
+  }
+
   const plans = [
     {
       name: "Free",
@@ -106,12 +112,19 @@ export default function Pricing({ activeSubscription }: PricingProps) {
                 variant={plan.variant}
                 className="w-full"
                 onClick={plan.name === "Basic" ? handleUpgrade : undefined}
-                disabled={plan.name === "Basic" && activeSubscription === "basic"}
+                disabled={activeSubscription === "basic"}
               >
                 {activeSubscription === "basic" && plan.name === "Basic" 
                   ? "Current Plan" 
                   : plan.action}
                 </Button>
+              )}
+              {activeSubscription === "basic" && (
+                <div className="w-full mt-4">
+                  <Button className="w-full" variant="outline" onClick={handleCancel}>
+                    Cancel Subscription
+                  </Button>
+                </div>
               )}
             </motion.div>
           ))}

@@ -24,12 +24,12 @@ export default function Home() {
     fetchSubscriptions();
   }, [session]);
 
-  if (!session?.user)
-    return (
-      <div className="flex justify-center h-screen items-center">
-        <div className="size-8 animate-pulse rounded-full border bg-muted" />
-      </div>
-    );
+  // if (!session?.user)
+  //   return (
+  //     <div className="flex justify-center h-screen items-center">
+  //       <div className="size-8 animate-pulse rounded-full border bg-muted" />
+  //     </div>
+  //   );
 
   return (
     <main className="min-h-screen">
