@@ -2,6 +2,8 @@ This is a simple Next.js boilerplate using Better-auth, Google Oauth, Drizzle-or
 
 Clone this repo, rename .env.example into .env or .env.local and fill in the environment variables to start.
 
+![alt text](image.png)
+
 ---
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
