@@ -1,3 +1,9 @@
+This is a simple Next.js boilerplate using Better-auth, Google Oauth, Drizzle-orm, Neon, Stripe and Shadcn.
+
+Clone this repo, rename .env.example into .env or .env.local and fill in the environment variables to start.
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
